@@ -30,7 +30,7 @@ public class NewBehaviourScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             direction *= -1;
-            spriteRenderer.flipX = !spriteRenderer.flipX;
+            spriteRenderer.flipX = !spriteRenderer.flipX;//ÁÂ¿ì ¹İÀü
         }
         
 
