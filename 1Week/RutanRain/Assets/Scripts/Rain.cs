@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Rain : MonoBehaviour
@@ -16,7 +17,7 @@ public class Rain : MonoBehaviour
 
         //랜덤한 위치
         // Random.Range(최소값, 최대값);
-        float x = Random.Range(0.0f, 1.0f);
+        float x = Random.Range(-2.4f, 2.4f);
         float y = Random.Range(3.0f, 5.0f);
 
         //랜덤하게 추출된 값을 포지션에 넣는다
@@ -26,7 +27,7 @@ public class Rain : MonoBehaviour
         //대중소 (타입1~3)
         //범위에서 최대값은 나오지 않는다
         //Random.Range(1, 4); 일때 최대값 4을 제외한 1,2,3 만 랜덤으로 등장
-        int type = Random.Range(1, 4);
+        int type = Random.Range(1, 5);
         //타입에 따라 크기, 점수, 색을 다르게 세팅하자
         if (type == 1)
         {
@@ -37,20 +38,27 @@ public class Rain : MonoBehaviour
             //데이터 형식은 float
             spriteRenderer.color = new Color(100 / 255f, 100 / 255f, 1f, 1f);
         }
-        else if (type == 2) 
+        else if (type == 2)
         {
             size = 1.0f;
             score = 2;
             spriteRenderer.color = new Color(130 / 255f, 130 / 255f, 1f, 1f);
 
         }
-        else if (type == 3) 
+        else if (type == 3)
         {
             size = 1.2f;
             score = 3;
             spriteRenderer.color = new Color(150 / 255f, 150 / 255f, 1f, 1f);
 
         }
+        else if (type == 4)
+        {
+            size = 0.8f;
+            score = -5;
+            spriteRenderer.color = new Color(255 / 255f, 100 / 255f, 100 / 255f, 1f);
+        }
+    
         //유니티 트랜스폼 컴포넌트에 접근해서 스케일 변경
         transform.localScale = new Vector3(size, size, 0);
 
@@ -77,6 +85,15 @@ public class Rain : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {   
             //this 는 Rain 자기 자신
+            Destroy(this.gameObject);
+
+        }
+
+        //게임 캐릭터 오브젝트에 부딪혔을때
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //GameManager를 전역적 접근할 수 있게 했기때문에 여기서 접근 가능 하다
+            GameManager.Instance.AddScore(score);
             Destroy(this.gameObject);
 
         }
