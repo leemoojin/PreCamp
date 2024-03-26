@@ -4,11 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
-{
+{   
     public GameObject square;
     public Text timeTxt;
 
     float time = 0.0f;
+
+    public static GameManager instance;
+    private void Awake()
+    {   
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
