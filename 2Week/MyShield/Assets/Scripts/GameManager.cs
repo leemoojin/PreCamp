@@ -6,9 +6,14 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {   
     public GameObject square;
+    public GameObject endPanel;
+
     public Text timeTxt;
+    public Text nowScore;
 
     float time = 0.0f;
+
+    bool isPlay = true;
 
     public static GameManager instance;
     private void Awake()
@@ -21,20 +26,25 @@ public class GameManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        //게임 시작
+        Time.timeScale = 1f;
+
         InvokeRepeating("MakeSquare", 0f, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {   
-        //타이머
-        time += Time.deltaTime;
-        timeTxt.text = time.ToString("n2");
-        Debug.Log(time);
+        
+        if (isPlay ) 
+        {
+            //타이머
+            time += Time.deltaTime;
+            timeTxt.text = time.ToString("n2");
+            Debug.Log(time);
 
-
-
+        }
 
     }
 
@@ -45,4 +55,16 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("생성한다");
     }
+
+    public void GameOver() 
+    {
+        isPlay = false;
+        //게임 정지(종료)
+        Time.timeScale = 0f;
+        nowScore.text = time.ToString("N2");
+        //엔드판넬 표시
+        endPanel.SetActive(true);
+
+    }
+
 }
