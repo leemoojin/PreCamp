@@ -977,6 +977,8 @@ MonoBehaviour:
   endPanel: {fileID: 1707633757}
   timeTxt: {fileID: 1777194778}
   nowScore: {fileID: 1746328219}
+  bestScore: {fileID: 1470248911}
+  anim: {fileID: 979746603}
 --- !u!4 &1449530924
 Transform:
   m_ObjectHideFlags: 0
