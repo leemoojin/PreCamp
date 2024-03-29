@@ -24,12 +24,17 @@ public class Square : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //스퀘어 오브젝트가 게임화면 밖으로 넘어가면 파괴
+        if (transform.position.y <= -6f)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     //충돌하는 로직
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         //스퀘어 오브젝트와 충돌된 것의 정보는 collision 매개변수에 들어있다
         //부딪힌 오브젝트의 태그이름이 Player 인지?
         if (collision.gameObject.CompareTag("Player"))
