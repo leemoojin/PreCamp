@@ -15,8 +15,7 @@ public class Cat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
-        //모든 기기의 프레임 값을 일정하게 맞춰서 계산하는 빈도도 똑같게 한다
-        Application.targetFrameRate = 60;
+        
         //고양이 위치를 y값 30, x값 -9~9 랜덤 
         float x = Random.Range(-9.0f, 9.0f);
         float y = 30.0f;
@@ -27,28 +26,41 @@ public class Cat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //배고플때
-        if (energy < full)
+        
+
+        //만약 게임이 실행 중이라면 , 실행중이 아니면 고양이 오브젝트가 멈춘다
+        if (Time.timeScale == 1.0f)
         {
-            //고양이 위치를 계속 아래로 내려오게
-            transform.position += Vector3.down * 0.05f;
-        }
-        //배부를때
-        else 
-        {
-            //중심을 기준(x값이 0)으로 좌우로 보내자
-            if (transform.position.x > 0)
+
+            //배고플때
+            if (energy < full)
             {
-                transform.position += Vector3.right * 0.05f;
+                //고양이 위치를 계속 아래로 내려오게
+                transform.position += Vector3.down * 0.05f;
+
+                //고양이의 위치가 y값이 -16보다 작으면 게임 오버를 호출
+                if (transform.position.y < -16.0f)
+                {
+                    GameManager.Instance.GameOver();
+                }
             }
-            else 
+            //배부를때
+            else
             {
-                transform.position += Vector3.left * 0.05f;
+                //중심을 기준(x값이 0)으로 좌우로 보내자
+                if (transform.position.x > 0)
+                {
+                    transform.position += Vector3.right * 0.05f;
+                }
+                else
+                {
+                    transform.position += Vector3.left * 0.05f;
+                }
+
+
             }
 
-        }
-        
-        
+        }                       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -62,16 +74,21 @@ public class Cat : MonoBehaviour
                 energy += 1.0f;
                 //스케일의 x 값이 1/5 -> 2/5 -> 3/5 순으로 커진다 
                 front.localScale = new Vector3(energy / full, 1.0f, 1.0f);
+                //Debug.Log("맛있다");
+                Destroy(collision.gameObject);//먹일때만 푸드 오브젝트 파괴
 
                 if (energy == full)
                 {
                     //체력이 꽉차면 헝그리캣 -> 풀캣
                     hungryCat.SetActive(false);
                     fullCat.SetActive(true);
-                }
 
-                //Debug.Log("맛있다");
-                Destroy(collision.gameObject);//먹일때만 푸드 오브젝트 파괴
+                    //체력이 꽉차면 3초후 오브젝트 파괴
+                    Destroy(gameObject, 3.0f);
+
+                    //점수증가 함수 호출
+                    GameManager.Instance.AddScore();
+                }                
                 
             }            
 
