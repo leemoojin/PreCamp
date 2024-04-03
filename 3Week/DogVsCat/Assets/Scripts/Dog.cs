@@ -9,7 +9,7 @@ public class Dog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("MakeFood", 0f, 0.5f);
+        InvokeRepeating("MakeFood", 0f, 0.2f);
 
     }
 
@@ -39,6 +39,6 @@ public class Dog : MonoBehaviour
         //미리 만들어둔 food프리펩 그대로 회전값없이 생성하겠다는 의미
         Instantiate(food, new Vector2(x, y), Quaternion.identity);
 
-        Debug.Log("밥먹어");
+        //Debug.Log("밥먹어");
     }
 }

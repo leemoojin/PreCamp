@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 307528972}
   - component: {fileID: 307528971}
   m_Layer: 5
-  m_Name: Front
+  m_Name: LevelFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,8 +513,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalCat: {fileID: 3211538704055050510, guid: effa2308b735d6640890eb1193fc7304, type: 3}
-  fatCat: {fileID: 0}
+  fatCat: {fileID: 1177106807606820417, guid: 08fb817d996990e4c8b1e24ccd26f7cd, type: 3}
+  pirateCat: {fileID: 6811545429960290759, guid: 48a23b8535c42a646b7ebe44f00b9cca, type: 3}
   retryBtn: {fileID: 1922003273}
+  levelFront: {fileID: 307528970}
+  levelTxt: {fileID: 1146492565}
 --- !u!4 &712682191
 Transform:
   m_ObjectHideFlags: 0
@@ -542,7 +545,7 @@ GameObject:
   - component: {fileID: 1146492566}
   - component: {fileID: 1146492565}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: LevelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -565,8 +568,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 100}
+  m_AnchoredPosition: {x: 0, y: -6}
+  m_SizeDelta: {x: 60, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1146492565
 MonoBehaviour:

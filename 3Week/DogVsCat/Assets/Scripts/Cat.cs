@@ -8,9 +8,15 @@ public class Cat : MonoBehaviour
     public GameObject fullCat;
 
     public RectTransform front;//체력바
+    
+    //뚱뚱한 고양이, 일반 고양이 구분용
+    public int type;
 
     float full = 5.0f;//총 체력
     float energy = 0.0f;
+    float speed = 0.05f;//고양이가 내려오는 속도
+
+    //bool isFull = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +27,24 @@ public class Cat : MonoBehaviour
         float y = 30.0f;
         transform.position = new Vector2(x, y);
 
+        //노말고양이
+        if (type == 1)
+        {
+            speed = 0.05f;
+            full = 5f;
+        }
+        //뚱뚱고양이
+        else if (type == 2)
+        {
+            speed = 0.02f;
+            full = 10f;
+        }
+        //해적고양이
+        else if (type == 3)
+        {
+            speed = 0.1f;
+            full = 5f;
+        }
     }
 
     // Update is called once per frame
@@ -36,7 +60,7 @@ public class Cat : MonoBehaviour
             if (energy < full)
             {
                 //고양이 위치를 계속 아래로 내려오게
-                transform.position += Vector3.down * 0.05f;
+                transform.position += Vector3.down * speed;
 
                 //고양이의 위치가 y값이 -16보다 작으면 게임 오버를 호출
                 if (transform.position.y < -16.0f)
@@ -67,7 +91,8 @@ public class Cat : MonoBehaviour
     {
         //푸드 태그 오브젝트와 부딪혔을 때
         if (collision.gameObject.CompareTag("Food"))
-        {
+        {   
+            //고양이 에너지가 꽉 차지 않았을 때
             if (energy < full)
             {   
                 //체력바 게이지 증가
@@ -77,8 +102,10 @@ public class Cat : MonoBehaviour
                 //Debug.Log("맛있다");
                 Destroy(collision.gameObject);//먹일때만 푸드 오브젝트 파괴
 
+                //에너지가 꽉 찼을 때
                 if (energy == full)
                 {
+                    //Debug.Log("에너지 꽉참");
                     //체력이 꽉차면 헝그리캣 -> 풀캣
                     hungryCat.SetActive(false);
                     fullCat.SetActive(true);
@@ -88,6 +115,7 @@ public class Cat : MonoBehaviour
 
                     //점수증가 함수 호출
                     GameManager.Instance.AddScore();
+
                 }                
                 
             }            
