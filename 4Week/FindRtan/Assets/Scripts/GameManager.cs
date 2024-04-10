@@ -46,8 +46,7 @@ public class GameManager : MonoBehaviour
         {
             //게임 종료
             timeTxt.text = "30.00";
-            Time.timeScale = 0.0f;
-            endTxt.SetActive(true);
+            GameOver();
         }
 
     }
@@ -65,8 +64,7 @@ public class GameManager : MonoBehaviour
             if (cardCount == 0)
             {
                 //게임 종료
-                Time.timeScale = 0.0f;
-                endTxt.SetActive(true);
+                GameOver();
             }
         }
         //다르다면 다시 뒤집어라
@@ -79,6 +77,12 @@ public class GameManager : MonoBehaviour
         //판단의 끝난뒤에 변수의 값을 비우자 다음 선택을 위해서
         firstCard = null;
         secondCard = null;
+    }
 
+    void GameOver() 
+    {
+        //게임 종료
+        Time.timeScale = 0.0f;
+        endTxt.SetActive(true);
     }
 }
