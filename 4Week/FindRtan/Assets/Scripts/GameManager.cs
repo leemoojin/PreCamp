@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 
     float time = 0.00f;
 
+    AudioSource audioSource;
+    public AudioClip clip;
+
     private void Awake()
     {
         if (Instance == null) 
@@ -32,6 +35,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1.0f;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -57,6 +61,8 @@ public class GameManager : MonoBehaviour
         //두장의 카드가 같다면 파괴해라
         if (firstCard.idx == secondCard.idx)
         {
+            audioSource.PlayOneShot(clip);//파괴 효과음
+
             firstCard.DestroyCard();
             secondCard.DestroyCard();
 
